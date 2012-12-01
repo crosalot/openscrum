@@ -75,7 +75,9 @@ stop_uwsgi() {
 }
 
 update() {
-	rsync -avz /web/openscrum/ /web/production --exclude=local_settings.py
+	rsync -avz ./* /web/production --exclude=local_settings.py
+	rsync -avz ./.git /web/production
+	rsync -avz ./.gitignore /web/production
 	kill `lsof -t -i:8081`
 	reload_nginx
 	python manage.py runfcgi host=127.0.0.1 port=8081

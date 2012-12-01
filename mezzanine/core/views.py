@@ -60,11 +60,17 @@ def direct_to_template(request, template, extra_context=None, **kwargs):
     """
     context = extra_context or {}
     context["params"] = kwargs
-    context['test_haha'] = 'xxxxxxxx'
-    context['blog_posts'] = BlogPost.objects.published(for_user=request.user)
+    blog_posts = BlogPost.objects.published(for_user=request.user)
+    blog_posts = paginate(blog_posts, request.GET.get("page", 1),
+                          settings.BLOG_POST_PER_PAGE,
+                          settings.MAX_PAGING_LINKS)
+
+    context['blog_posts'] = blog_posts
+
     for (key, value) in context.items():
         if callable(value):
             context[key] = value()
+
     return render(request, template, context)
 
 

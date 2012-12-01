@@ -1,0 +1,125 @@
+@font-face {
+        font-family: 'gillsans';
+        src: url('font/ufonts.com_gillsans.eot');
+        src: url('font/ufonts.com_gillsans.eot?#iefix') format('embedded-opentype'),
+         url('font/ufonts.com_gillsans.woff') format('woff'),
+         url('font/ufonts.com_gillsans.ttf') format('truetype'),
+         url('font/ufonts.com_gillsans.svg#SketchBlockBold') format('svg');
+        font-style: normal;
+}
+body {
+	position: relative;
+}
+a {color: #9b0011;}
+a:hover {color: #ffd162;text-decoration: underline;}
+a.brand {
+  color: #000;
+  background: url(../img/logo.png) no-repeat;
+  text-indent: -999em;
+  overflow: hidden;
+  display: block;
+  height: 106px;
+  margin: 0 auto;
+  width: 310px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  float: left;
+}
+.breadcrumb {display: none;}
+.navbar .navbar-inner {
+	background-color: #9b0011;
+	background-image: none !important;
+	filter: none;
+}
+
+.container {
+	width: 960px;
+	padding: 0 10px;
+	position: relative;
+	margin: 0 auto;
+	position: relative;
+}
+footer .container {
+	width: 960px;
+}
+footer {
+	background: #3e3e3e;
+}
+footer a{
+	color: #FFF;
+	text-shadow: #000 1px 1px 1px;
+}
+footer a:hover {
+	color: #FFF;
+	text-decoration: underline;
+}
+footer ul, footer ul li {
+	padding: 0;
+	margin: 0;
+}
+
+.tagline {display: none;}
+
+.navbar {
+	background: #9b0011;
+	border-bottom: 1px solid #de5e40;
+	height: 40px;
+}
+.navbar .nav a,
+.navbar .nav a:visited {
+	color: #FFF !important;
+	background-color: #9b0011;
+	text-shadow: #000 1px 1px 1px;
+	padding: 0;
+	font-family: 'gillsans';
+	font-size: 16px;
+}
+.navbar .nav .active a,
+.navbar .nav a:hover,
+.navbar .nav .active a:hover {
+	color: #ffd162 !important;
+	background-color: #9b0011;
+}
+.dropdown-menu {
+
+}
+.navbar li.divider-vertical {display: none;}
+
+form.navbar-search {
+	position: absolute;
+	top: -85px;
+	right: 0;
+	border: 0;
+	height: 28px;
+	margin: 0;
+}
+
+form.navbar-search input.search-query {
+	background-color: #e7dede;
+	border-color: #666;
+	border-radius: 5px;
+}
+
+.row .middle h2 {
+	font-family: 'gillsans';
+	font-size: 24px;
+}
+.blog-item {
+	border-bottom: 1px solid #666;
+	position: relative;
+}
+.blog-item .blog-teaser {}
+.blog-item .blog-list-detail {
+	border: none;
+	text-align: right;
+	background-color: #fff;
+	display: block;
+	position: absolute;
+	right: 0;
+	bottom: -62px;
+	padding-left: 5px;
+}
+.slide {
+	width: 960px;
+	margin: 0 auto;
+}

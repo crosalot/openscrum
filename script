@@ -1,0 +1,113 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          Django EC2 server
+# Required-Start:    networking
+# Required-Stop:     networking
+# Default-Start:  3 5
+# Default-Stop:   0 1 2 6
+# Short-Description: Django server management script
+# Description:       Django server management script
+### END INIT INFO
+
+########## Nginx Config ##########
+NGINX_BIN=/usr/local/nginx/sbin/nginx
+NGINX_CONFIGFILE=/web/conf/nginx/nginx.conf
+
+########## UWSGI Config ##########
+UWSGI_BIN=uwsgi
+UWSGI_EMPEROR_FOLDER=/web/conf/uwsgi
+UWSGI_LOGFILE=/web/logs/uwsgi.log
+
+############### No additional configuration below ###############
+
+start_nginx() {
+        if [ "`pidof nginx`" = "" ]; then
+                echo "Starting nginx server"
+                $NGINX_BIN -c $NGINX_CONFIGFILE
+        else
+                echo "nginx server is already running"
+        fi
+}
+
+reload_nginx() {
+        if [ "`pidof nginx`" = "" ]; then
+                echo "Nginx server is not running"
+        else
+                kill -HUP `pidof nginx`
+                echo "Nginx Configuration reloaded"
+        fi
+}
+
+stop_nginx() {
+        if [ "`pidof nginx`" = "" ]; then
+                echo "nginx server is already stopped"
+        else
+                echo "Stoping nginx server"
+                kill -INT `pidof nginx`
+        fi
+}
+
+start_uwsgi() {
+        if [ "`pidof uwsgi`" = "" ]; then
+                echo "Starting uwsgi server"
+                $UWSGI_BIN --emperor $UWSGI_EMPEROR_FOLDER --daemonize $UWSGI_LOGFILE
+        else
+                echo "uwsgi server is already running"
+        fi
+}
+
+reload_uwsgi() {
+        if [ "`pidof uwsgi`" = "" ]; then
+                echo "uwsgi server is not running"
+        else
+                echo "Sending signal to uwsgi server to reload"
+                kill -HUP `pidof uwsgi`
+        fi
+}
+
+stop_uwsgi() {
+        if [ "`pidof uwsgi`" = "" ]; then
+                echo "uwsgi server is already stopped"
+        else
+                echo "Stoping uwsgi server"
+                kill -INT `pidof uwsgi`
+        fi
+}
+
+update() {
+	rsync -avz /web/openscrum/ /web/production --exclude=local_settings.py
+	kill `lsof -t -i:8081`
+	reload_nginx
+	python manage.py runfcgi host=127.0.0.1 port=8081
+}
+
+# See how we were called.
+case "$1" in
+        start_nginx)
+                start_nginx
+                ;;
+        reload_nginx)
+                reload_nginx
+                ;;
+        stop_nginx)
+                stop_nginx
+                ;;
+        start_uwsgi)
+                start_uwsgi
+                ;;
+        reload_uwsgi)
+                reload_uwsgi
+                ;;
+        stop_uwsgi)
+                stop_uwsgi
+                ;;
+        update)
+                update
+                ;;
+        
+        *)
+        echo $"Usage: $prog {start_nginx|reload_nginx|stop_nginx|start_uwsgi|reload_uwsgi|stop_uwsgi}"
+        exit 1
+esac
+
+exit 0

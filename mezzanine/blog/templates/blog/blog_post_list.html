@@ -104,7 +104,7 @@
     <br>
     {% endif %}
     <a href="{{ blog_post.get_absolute_url }}">{% trans "read more" %}</a>
-    /
+    <!-- /
     {% if settings.COMMENTS_DISQUS_SHORTNAME %}
     <a href="{{ blog_post.get_absolute_url }}#disqus_thread"
         data-disqus-identifier="{% disqus_id_for blog_post %}">
@@ -114,7 +114,7 @@
     <a href="{{ blog_post.get_absolute_url }}#comments">
         {% blocktrans count blog_post.comments_count as comments_count %}1 comment{% plural %}{{ comments_count }} comments{% endblocktrans %}
     </a>
-    {% endif %}
+    {% endif %} -->
 </p>
 {% endfor %}
 

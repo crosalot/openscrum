@@ -2,10 +2,9 @@
 
 {% load i18n %}
 
-{% block title %}
-{% trans "Error" %}
-{% endblock %}
 
 {% block main %}
-{% trans "Sorry, an error occurred." %}
+<div class="error-page">
+	<img src="/static/img/500-serverDown.png" alt="500">
+</div>
 {% endblock %}

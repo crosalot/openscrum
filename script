@@ -80,6 +80,7 @@ update() {
 	rsync -avz ./.gitignore /web/production
 	kill `lsof -t -i:8081`
 	reload_nginx
+	cd /web/production
 	python manage.py runfcgi host=127.0.0.1 port=8081
 }
 
